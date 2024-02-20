@@ -193,18 +193,20 @@
 
 <!-- Dark Mode Toggle Button -->
 <button class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
-
+<script src = "output.js"></script>
 <script>
-  var originalContests; // Store original data for resetting
+    // import data from output.js;
+    
+  var originalContests=data; // Store original data for resetting
 
   // Fetch JSON data from the file
-  fetch('/output.json')
-    .then(response => response.json())
-    .then(data => {
+//   fetch('/output.json')
+//     .then(response => response.json())
+//     .then(data => {
       createTableRows(data);
-      originalContests = data; // Store original data for resetting
-    })
-    .catch(error => console.error('Error fetching JSON:', error));
+//       originalContests = data; // Store original data for resetting
+//     })
+//     .catch(error => console.error('Error fetching JSON:', error));
 
   // Function to create HTML table rows for each contest
   function createTableRows(contests) {
