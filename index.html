@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contest Explorer</title>
+<style>
+  /* Global Styles */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  body.dark-mode {
+    background-color: #222;
+    color: #fff;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* Navbar Styles */
+  .navbar {
+    background-color: #3f51b5;
+    color: #fff;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  /* Table Styles */
+  #contestTable {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+  }
+
+  th, td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+  }
+
+  tr:hover {
+    background-color: rgb(209, 209, 209);
+    transition: background-color 0.3s ease;
+  }
+
+  a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: #0056b3;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  li {
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* Footer Styles */
+  .footer {
+    background-color: #3f51b5;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .footer p {
+    margin: 0;
+  }
+
+  /* Logo Styles */
+  .logo {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+  }
+
+  /* Search Styles */
+  .search-container {
+    margin-bottom: 20px;
+  }
+  body.dark-mode #contestTable {
+    background-color: #333;
+    color: #fff;
+  }
+
+  body.dark-mode tr:hover {
+    /* background-color: #333; */
+    color:black;
+  }
+
+
+  body.dark-mode th {
+    background-color: #444;
+    color: #fff;
+  }
+
+  .search-container input[type=text] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  /* Dark Mode Toggle Styles */
+  .dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #222;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .dark-mode-toggle:hover {
+    background-color: #444;
+  }
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="container">
+    <h1 class="navbar-brand">Contest Explorer</h1>
+  </div>
+</header>
+
+<div class="container">
+  <div class="search-container">
+    <input type="text" id="searchInput" onkeyup="searchContests()" placeholder="Search for contest or problem names...">
+  </div>
+  <table id="contestTable">
+    <thead>
+      <tr>
+        <th>Contest Name</th>
+        <th>Contest Link</th>
+        <th>Problems</th>
+      </tr>
+    </thead>
+    <tbody id="contestTableBody">
+    </tbody>
+  </table>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2024 Contest Explorer. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Dark Mode Toggle Button -->
+<button class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
+
+<script>
+  var originalContests; // Store original data for resetting
+
+  // Fetch JSON data from the file
+  fetch('/output.json')
+    .then(response => response.json())
+    .then(data => {
+      createTableRows(data);
+      originalContests = data; // Store original data for resetting
+    })
+    .catch(error => console.error('Error fetching JSON:', error));
+
+  // Function to create HTML table rows for each contest
+  function createTableRows(contests) {
+    var tableBody = document.getElementById('contestTableBody');
+
+    tableBody.innerHTML = ''; // Clear previous table content
+
+    contests.forEach(function(contest) {
+      var row = document.createElement('tr');
+
+      var nameCell = document.createElement('td');
+      nameCell.textContent = contest.ContestName;
+      row.appendChild(nameCell);
+
+      var linkCell = document.createElement('td');
+      var link = document.createElement('a');
+      link.textContent = 'Link';
+      link.href = contest.ContestLink;
+      linkCell.appendChild(link);
+      row.appendChild(linkCell);
+
+      var problemsCell = document.createElement('td');
+      var problemsList = document.createElement('ul');
+      contest.Problems.forEach(function(problem) {
+        var problemItem = document.createElement('li');
+        var problemLink = document.createElement('a');
+        problemLink.textContent = problem.name;
+        problemLink.href = problem.href;
+        problemItem.appendChild(problemLink);
+        problemsList.appendChild(problemItem);
+      });
+      problemsCell.appendChild(problemsList);
+      row.appendChild(problemsCell);
+
+      tableBody.appendChild(row);
+    });
+  }
+
+  // Search Functionality
+  function searchContests() {
+    var input, filter, table, tbody, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("contestTable");
+    tbody = table.getElementsByTagName("tbody")[0];
+    tr = tbody.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td");
+      var found = false;
+      for (var j = 0; j < td.length; j++) {
+        if (td[j]) {
+          txtValue = td[j].textContent || td[j].innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            found = true;
+            break;
+          }
+        }
+      }
+      if (found) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+
+  // Dark Mode Toggle Functionality
+  function toggleDarkMode() {
+    var body = document.body;
+    body.classList.toggle("dark-mode");
+  }
+</script>
+
+</body>
+</html>
