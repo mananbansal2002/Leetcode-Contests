@@ -255,13 +255,25 @@ document.getElementById('searchInput').addEventListener('input', function() {
 
 function filterContests() {
   var searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
-  var filteredContests = originalContests.filter(function(contest) {
-    return contest.ContestName.toLowerCase().includes(searchTerm) ||
-           contest.Problems.some(function(problem) {
-             return problem.name.toLowerCase().includes(searchTerm);
-           });
+  var rows = document.querySelectorAll('#contestTableBody tr');
+
+  rows.forEach(function(row) {
+    var contestName = row.cells[0].textContent.toLowerCase();
+    var problems = row.cells[2].querySelectorAll('li');
+
+    var matchFound = contestName.includes(searchTerm);
+    problems.forEach(function(problem) {
+      if (problem.textContent.toLowerCase().includes(searchTerm)) {
+        matchFound = true;
+      }
+    });
+
+    if (matchFound) {
+      row.style.display = ''; // Show the row if it matches the search term
+    } else {
+      row.style.display = 'none'; // Hide the row if it doesn't match the search term
+    }
   });
-  createTableRows(filteredContests);
 }
 
 
@@ -292,6 +304,7 @@ function fetchContestDetails() {
 
 // Function to update contest data with problems solved information
 function updateContestDataWithSolvedProblems(contests, contestHistory) {
+  var filter = document.getElementById("attendanceFilter").value = 'all';
   contestHistory.forEach(function(historyItem) {
     var matchingContest = contests.find(function(contest) {
       // Remove date, time, and timezone portions from contest name and title
