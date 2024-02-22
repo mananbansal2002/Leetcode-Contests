@@ -6,195 +6,193 @@
 <title>Contest Explorer</title>
 <style>
   /* Global Styles */
- /* Global Styles */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-body.dark-mode {
-  background-color: #222;
-  color: #fff;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.logo{
-  width: 500px;
-}
-
-/* Navbar Styles */
-.navbar {
-  background-color: #3f51b5;
-  color: #fff;
-  padding: 10px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-}
-
-.navbar-brand {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0;
-}
-
-/* Table Styles */
-#contestTable {
-  width: 100%;
-  margin-top: 20px;
-  border-collapse: collapse;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow-x: auto; /* Enable horizontal scrolling */
-  margin-bottom: 150px;
-}
-
-th, td {
-  padding: 16px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  white-space: nowrap; /* Prevent wrapping of text */
-}
-
-th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-  color: #333;
-  text-transform: uppercase;
-}
-
-tr {
-  transition: background-color 0.3s ease; /* Animation added */
-}
-
-tr:hover {
-  background-color: rgb(209, 209, 209);
-}
-
-a {
-  text-decoration: none;
-  color: #007bff;
-  transition: color 0.3s ease;
-}
-
-a:hover {
-  color: #0056b3;
-}
-
-ul {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-}
-
-li {
-  margin-bottom: 6px;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-/* Footer Styles */
-.footer {
-  background-color: #3f51b5;
-  color: #fff;
-  text-align: center;
-  padding: 20px 0;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.footer p {
-  margin: 0;
-}
-
-/* Logo Styles */
-.logo {
-  display: block;
-  margin: 0 auto;
-  padding:0;
-}
-
-.Nav {
-  display: flex;
-  justify-content: flex-start;
-  width: 100vw;
-  padding-left: 50px;
-}
-
-/* Search Styles */
-.search-container {
-  margin-bottom: 20px;
-}
-
-body.dark-mode .search-container input[type=text], 
-body.dark-mode #attendanceFilter {
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #555;
-}
-
-.search-container input[type=text] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-  font-size: 16px;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Added transition */
-}
-
-/* Dark Mode Toggle Styles */
-.dark-mode-toggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: #222;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.dark-mode-toggle:hover {
-  background-color: #444;
-}
-
-/* Badge Styles */
-.badge {
-  padding: 4px 6px;
-  border-radius: 4px;
-  font-size: 10px;
-  font-weight: bold;
-  text-transform: uppercase;  
-}
-
-.easy { background-color: #4caf50; color: #fff; }
-.medium { background-color: #ffc107; color: #000; }
-.hard { background-color: #f44336; color: #fff; }
-
-/* Responsive Styles */
-@media screen and (max-width: 600px) {
-  #contestTable th:nth-child(3),
-  #contestTable td:nth-child(3) {
-    display: none; /* Hide the Problems Solved column */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
   }
 
-  #contestTable th:nth-child(2),
-  #contestTable td:nth-child(2) {
-    width: 50%; /* Expand the Contest Link column to fill the space */
+  body.dark-mode {
+    background-color: #222;
+    color: #fff;
   }
-}
 
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .logo{
+    width:500px;
+  }
+
+  /* Navbar Styles */
+  .navbar {
+    background-color: #3f51b5;
+    color: #fff;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+  }
+
+  .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  /* Table Styles */
+  #contestTable {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    margin-bottom: 150px;
+  }
+
+  th, td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+  }
+
+  tr {
+    transition: background-color 0.3s ease; /* Animation added */
+  }
+
+  tr:hover {
+    background-color: rgb(209, 209, 209);
+  }
+
+  a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: #0056b3;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  li {
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* Footer Styles */
+  .footer {
+    background-color: #3f51b5;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .footer p {
+    margin: 0;
+  }
+
+  /* Logo Styles */
+  .logo {
+    display: block;
+    margin: 0 auto;
+    padding:0;
+  }
+
+  .Nav {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 50px;
+  }
+
+  /* Search Styles */
+  .search-container {
+    margin-bottom: 20px;
+  }
+
+  body.dark-mode .search-container input[type=text], 
+  body.dark-mode #attendanceFilter {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+  }
+
+  body.dark-mode #contestTable {
+    background-color: #333;
+    color: #fff;
+  }
+
+  body.dark-mode tr:hover {
+    color: black;
+  }
+
+  body.dark-mode th {
+    background-color: #444;
+    color: #fff;
+  }
+
+  .search-container input[type=text] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Added transition */
+  }
+
+  /* Dark Mode Toggle Styles */
+  .dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #222;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .dark-mode-toggle:hover {
+    background-color: #444;
+  }
+
+  /* Badge Styles */
+  .badge {
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;  
+  }
+
+  .easy { background-color: #4caf50; color: #fff; }
+  .medium { background-color: #ffc107; color: #000; }
+  .hard { background-color: #f44336; color: #fff; }
 </style>
 </head>
 <body>
