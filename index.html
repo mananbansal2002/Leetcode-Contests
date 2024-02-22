@@ -29,7 +29,86 @@
   }
 
   /* Navbar Styles */
+  #contestTable {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    margin-bottom: 150px;
+  }
+  
+  th, td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+  }
+  
+  tr {
+    transition: background-color 0.3s ease; /* Animation added */
+  }
+  
+  tr:hover {
+    background-color: rgb(209, 209, 209);
+  }
+  
+  a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: #0056b3;
+  }
+  
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  li {
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  /* Footer Styles */
+  .footer {
+    background-color: #3f51b5;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .footer p {
+    margin: 0;
+  }
+
+  /* Logo Styles */
+  .logo {
+    display: block;
+    margin: 0 auto;
+    padding:0;
+  }
+  
   .navbar {
+    
+    width:100%;
     background-color: #3f51b5;
     color: #fff;
     padding: 10px 0;
@@ -44,83 +123,6 @@
   }
 
   /* Table Styles */
-  #contestTable {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #fff;
-    margin-bottom: 150px;
-  }
-
-  th, td {
-    padding: 16px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-
-  th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-    color: #333;
-    text-transform: uppercase;
-  }
-
-  tr {
-    transition: background-color 0.3s ease; /* Animation added */
-  }
-
-  tr:hover {
-    background-color: rgb(209, 209, 209);
-  }
-
-  a {
-    text-decoration: none;
-    color: #007bff;
-    transition: color 0.3s ease;
-  }
-
-  a:hover {
-    color: #0056b3;
-  }
-
-  ul {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-  }
-
-  li {
-    margin-bottom: 6px;
-    font-size: 14px;
-    line-height: 1.6;
-  }
-
-  /* Footer Styles */
-  .footer {
-    background-color: #3f51b5;
-    color: #fff;
-    text-align: center;
-    padding: 20px 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .footer p {
-    margin: 0;
-  }
-
-  /* Logo Styles */
-  .logo {
-    display: block;
-    margin: 0 auto;
-    padding:0;
-  }
-
   .Nav {
     display: flex;
     justify-content: flex-start;
@@ -203,6 +205,12 @@
   </div>
 </header>
 
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2024 Contest Explorer. All rights reserved.</p>
+  </div>
+</footer>
+
 <div class="container">
   <div class="search-container">
     <div class="search-container">
@@ -232,12 +240,6 @@
     </tbody>
   </table>
 </div>
-
-<footer class="footer">
-  <div class="container">
-    <p>&copy; 2024 Contest Explorer. All rights reserved.</p>
-  </div>
-</footer>
 
 <!-- Dark Mode Toggle Button -->
 <button class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
@@ -426,6 +428,10 @@ function showProblemsSolvedColumn() {
     }
     else rows[i].cells[3] = problemsSolvedCell
   }
+
+
+       const tableWidth = table.offsetWidth; // Get the width of the table
+        document.querySelector('.navbar').style.width = `${tableWidth+20}px`;
 }
 
 // Dark Mode Toggle Functionality
