@@ -2,7 +2,7 @@ name: Tasker
 
 on:
   schedule:
-    - cron: "0 */12 * * *"
+    - cron: "* * * * *"
 
 jobs:
   get_rows:
