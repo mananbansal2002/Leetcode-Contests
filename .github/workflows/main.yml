@@ -1,6 +1,9 @@
 name: Tasker
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: "* * * * *"
 
@@ -14,7 +17,7 @@ jobs:
 
       - name: Curl data from API
         run: |
-          curl -s {{vars.API_ROUTE}} > api_data.json
+          curl -s ${{ secrets.API_ROUTE }} > api_data.json
           echo "var data = $(jq -c .contests api_data.json);" > output.js
 
       - name: Commit files
