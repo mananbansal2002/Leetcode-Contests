@@ -19,6 +19,7 @@ jobs:
         run: |
           curl -s ${{ vars.API_ROUTE }} > api_data.json
           echo "var data = $(jq -c .contests api_data.json);" > output.js
+          echo  $GITHUB_TOKEN
 
       - name: Commit files
         run: | 
