@@ -1,0 +1,31 @@
+name: Tasker
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"
+
+jobs:
+  get_rows:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Curl data from API
+        run: |
+          curl -s {{vars.API_ROUTE}} > api_data.json
+          echo "var data = $(jq -c .contests api_data.json);" > output.js
+
+      - name: Commit files
+        run: | 
+          git config --local user.email "manan.bansal.1806@gmail.com"
+          git config --local user.name "mananbansal2002"
+          git add output.js
+          git commit -m "Update output.js with JSON data"
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
