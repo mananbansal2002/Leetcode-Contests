@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contest Explorer</title>
+   <link rel="icon" type="image/x-icon" href="/logo.svg">
 <style>
   /* Global Styles */
   body {
@@ -37,7 +38,7 @@
     border-radius: 8px;
     overflow: hidden;
     background-color: #fff;
-    margin-bottom: 150px;
+   
   }
   
   th, td {
@@ -89,7 +90,6 @@
     color: #fff;
     text-align: center;
     padding: 20px 0;
-    position: fixed;
     bottom: 0;
     width: 100%;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
@@ -171,7 +171,7 @@
     top: 20px;
     right: 20px;
     padding: 10px 20px;
-    background-color: #222;
+    background-color: #444;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -180,7 +180,7 @@
   }
 
   .dark-mode-toggle:hover {
-    background-color: #444;
+    background-color: #666;
   }
 
   /* Badge Styles */
@@ -204,12 +204,6 @@
     <img src="logo.svg" width="200px"/>
   </div>
 </header>
-
-<footer class="footer">
-  <div class="container">
-    <p>&copy; 2024 Contest Explorer. All rights reserved.</p>
-  </div>
-</footer>
 
 <div class="container">
   <div class="search-container">
@@ -240,7 +234,11 @@
     </tbody>
   </table>
 </div>
-
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2024 Contest Explorer. All rights reserved.</p>
+  </div>
+</footer>
 <!-- Dark Mode Toggle Button -->
 <button class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
 <script src = 'output.js'></script>
