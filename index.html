@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Explorer</title>
 <link rel="icon" type="image/x-icon" href="favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
   /* Global Styles */
   body {
@@ -38,7 +39,6 @@
     border-radius: 8px;
     overflow: hidden;
     background-color: #fff;
-   
   }
   
   th, td {
@@ -67,7 +67,7 @@
     color: #007bff;
     transition: color 0.3s ease;
   }
-  
+ 
   a:hover {
     color: #0056b3;
   }
@@ -195,6 +195,52 @@
   .easy { background-color: #4caf50; color: #fff; }
   .medium { background-color: #ffc107; color: #000; }
   .hard { background-color: #f44336; color: #fff; }
+
+
+/* New style for "Mark as Solved" button */
+
+.tick{
+  background-color: white;
+  outline:none;
+  color:green;
+  border:none;
+}
+.cross{
+  background-color: white;
+  outline:none;
+  color:red;
+  border:none;
+}
+
+button.mark-solved {
+  padding: 6px 12px;
+  background-color: #4CAF50; 
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button.mark-solved:hover {
+  background-color: #45a049; 
+}
+
+/* Style for solved problems */
+.solved a {
+  color: #fff;
+  background-color: #8bc34a; /* Light green */
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.solved a:hover {
+  background-color: #7cb342; /* Darker green on hover */
+}
+
+
+
+
 </style>
 </head>
 <body>
@@ -204,6 +250,7 @@
     <img src="logo.svg" width="200px"/>
   </div>
 </header>
+
 
 <div class="container">
   <div class="search-container">
@@ -374,6 +421,16 @@ function createTableRows(contests) {
       problemLink.textContent = problem.name;
       problemLink.href = problem.href;
 
+
+      var markSolvedButton = document.createElement('button');
+markSolvedButton.classList.add('solved-button');
+markSolvedButton.classList.add('tick');
+markSolvedButton.innerHTML = '<i class="fas fa-check"></i>'; // Using Font Awesome icon
+markSolvedButton.onclick = function() {
+  toggleMarkProblemSolved(problem.href,markSolvedButton);
+};
+
+
       // Adding badge based on difficulty
       var difficultyBadge = document.createElement('span');
       difficultyBadge.classList.add('badge');
@@ -394,7 +451,9 @@ function createTableRows(contests) {
       difficultyBadge.textContent = problem.difficulty;
       problemItem.appendChild(problemLink);
       problemItem.appendChild(document.createTextNode(' '));
+
       problemItem.appendChild(difficultyBadge);
+      problemItem.appendChild(markSolvedButton);
       problemsList.appendChild(problemItem);
     });
     problemsCell.appendChild(problemsList);
@@ -437,6 +496,77 @@ function toggleDarkMode() {
   var body = document.body;
   body.classList.toggle("dark-mode");
 }
+
+
+
+function toggleMarkProblemSolved(problemLink,markSolvedButton) {
+    // Retrieve solved problems from local storage
+    let solvedProblems = JSON.parse(localStorage.getItem('solvedProblems')) || {};
+    // Toggle the solved status of the problem
+    if (solvedProblems[problemLink]) {
+        delete solvedProblems[problemLink]; // Unmark the problem as solved
+    } else {
+        solvedProblems[problemLink] = true; // Mark the problem as solved
+    }
+    // Store the updated solved problems in local storage
+    localStorage.setItem('solvedProblems', JSON.stringify(solvedProblems));
+
+    // Update the visual style of the solved problem
+    let problemLinks = document.querySelectorAll('a[href="' + problemLink + '"]');
+    problemLinks.forEach(function(problemLink) {
+        problemLink.parentNode.classList.toggle('solved'); // Toggle the solved class
+    });
+
+    if(markSolvedButton.classList.contains('tick'))
+    {
+      markSolvedButton.classList.add('cross');
+      markSolvedButton.classList.remove('tick');
+      markSolvedButton.innerHTML = '<i class="fa fa-times"></i>';
+    }
+    else 
+    {
+      console.log('s');
+      markSolvedButton.classList.remove('cross');
+      markSolvedButton.classList.add('tick');
+      markSolvedButton.innerHTML = '<i class="fas fa-check"></i>';
+    }
+
+    
+}
+
+// Function to check and visually indicate solved problems on page load
+function checkAndMarkSolvedProblems() {
+    // Retrieve solved problems from local storage
+    let solvedProblems = JSON.parse(localStorage.getItem('solvedProblems')) || {};
+    // Iterate over each solved problem and visually indicate it
+    Object.keys(solvedProblems).forEach(function(problemLink) {
+        let problemLinks = document.querySelectorAll('a[href="' + problemLink + '"]');
+        problemLinks.forEach(function(problemLink) {
+            problemLink.parentNode.classList.add('solved');
+        });
+    });
+
+  // Iterate over each row to check which links are marked as solved and mark the button as cross accordingly
+  let rows = document.querySelectorAll('#contestTableBody tr');
+rows.forEach(function(row) {
+    let markButtons = row.querySelectorAll('.solved-button');
+    markButtons.forEach(function(markButton) {
+        let problemListItem = markButton.parentElement; // Get the parent <li> element
+        let problemLink = problemListItem.querySelector('a');
+        if (problemListItem.classList.contains('solved')) {
+            // If the problem is solved, mark the button as a cross
+            markButton.classList.add('cross');
+            markButton.classList.remove('tick');
+            markButton.innerHTML = '<i class="fa fa-times"></i>';
+        } 
+    });
+});
+
+
+}
+
+// Call the function to check and mark solved problems on page load
+checkAndMarkSolvedProblems();
 
 </script>
 
