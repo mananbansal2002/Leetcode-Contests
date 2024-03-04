@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 0 * * MON"
+    - cron: "30 0 * * MON"
 
 jobs:
   get_rows:
