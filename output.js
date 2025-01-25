@@ -1,1 +1,1 @@
-var data = manan juiuiu;
+var data = ;
