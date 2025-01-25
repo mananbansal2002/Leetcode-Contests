@@ -1,1 +1,1 @@
-var data = manan bansal;
+var data = ;
